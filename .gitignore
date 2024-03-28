@@ -8,3 +8,4 @@ Makefile
 autoapp_autogen
 btservice_autogen
 CMakeFiles
+.vscode
