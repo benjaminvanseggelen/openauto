@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <RtAudio.h>
+#include <rtaudio/RtAudio.h>
 #include <f1x/openauto/autoapp/Projection/IAudioOutput.hpp>
 #include <f1x/openauto/autoapp/Projection/SequentialBuffer.hpp>
 
