@@ -24,15 +24,21 @@ SET(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_INIT} -Wall -pedantic -fPIC")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 set(CMAKE_CXX_FLAGS_RELEASE "-g -O3")
+set(AASDK_PROTO_INCLUDE_DIRS "/usr/local/include/aasdk_proto")
+set(AASDK_INCLUDE_DIRS "/usr/local/include/f1x/aasdk")
+set(AASDK_PROTO_LIBRARIES "/usr/local/lib/libaasdk_proto.so")
+set(AASDK_LIBRARIES "/usr/local/lib/libaasdk.so")
 
 add_definitions(-DBOOST_ALL_DYN_LINK)
 
 find_package(Boost REQUIRED COMPONENTS system log OPTIONAL_COMPONENTS unit_test_framework)
 find_package(libusb-1.0 REQUIRED)
 find_package(Qt5 COMPONENTS Multimedia MultimediaWidgets Bluetooth)
-find_package(Protobuf REQUIRED)
+find_package(protobuf REQUIRED CONFIG)
 find_package(OpenSSL REQUIRED)
 find_package(rtaudio REQUIRED)
+
+set(PROTOBUF_LIBRARIES "/usr/lib/libprotobuf.so")
 
 if(WIN32)
     set(WINSOCK2_LIBRARIES "ws2_32")
@@ -84,7 +90,8 @@ target_link_libraries(autoapp
                         ${WINSOCK2_LIBRARIES}
                         ${RTAUDIO_LIBRARIES}
                         ${AASDK_PROTO_LIBRARIES}
-                        ${AASDK_LIBRARIES})
+                        ${AASDK_LIBRARIES}
+                        absl::log_internal_check_op)
 
 set(btservice_sources_directory ${sources_directory}/btservice)
 set(btservice_include_directory ${include_directory}/f1x/openauto/btservice)
